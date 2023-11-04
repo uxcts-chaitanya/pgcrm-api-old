@@ -4,11 +4,14 @@ const mongoAtlasUri = `mongodb://localhost:27017/pgcrm`;
 function mongooseConnection() {
 	try {
 		// Connect to the MongoDB cluster
-		mongoose.connect(
-			mongoAtlasUri,
-			{ useNewUrlParser: true, useUnifiedTopology: true },
-			() => console.log("Mongoose is connected")
-		);
+		mongoose
+			.connect(mongoAtlasUri, {
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+				// user: "root",
+				// pass: "password",
+			})
+			.then(console.log("connected to Mongo!"));
 	} catch (e) {
 		console.log("could not connect");
 	}
