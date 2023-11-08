@@ -1,24 +1,43 @@
 const User = require("../models/user");
 const moment = require("moment");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+const TOKEN_KEY = "PGCRM_TOKEN";
 
 const login = async (req, res) => {
-	const user = await User.findOne({ email: req.body.username });
-	console.log(req.body, user);
-	if (!user) {
+	const { username, password } = req.body;
+	console.log(username, password);
+	if (!(username && password)) {
 		res
 			.status(200)
-			.send({ isAuthenticated: false, message: "Invalid username/password" });
-	} else if (user.password !== req.body.password) {
-		res
-			.status(200)
-			.send({ isAuthenticated: false, message: "Invalid username/password" });
-	} else {
-		const resp = {
-			isAuthenticated: true,
-			message: "User Authenticated",
-			user: user,
-		};
-		res.status(200).send(resp);
+			.send({ isAuthenticated: false, message: "All input is required" });
+	}
+
+	try {
+		const user = await User.findOne({ email: username });
+		if (!user) {
+			res
+				.status(200)
+				.send({ isAuthenticated: false, message: "Invalid username/password" });
+		} else {
+			// if (await bcrypt.compare(password, user.password)) {
+			const token = jwt.sign({ user_id: user._id, username }, TOKEN_KEY, {
+				expiresIn: "2h",
+			});
+
+			const resp = {
+				isAuthenticated: true,
+				message: "User Authenticated",
+				user: user,
+				token: token,
+			};
+			console.log(user);
+			res.status(200).send(resp);
+			// }
+		}
+	} catch (err) {
+		console.log(err);
 	}
 };
 
