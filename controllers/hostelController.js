@@ -1,4 +1,7 @@
 const Hostel = require("../models/hostel");
+const HostelFloor = require("../models/hostel_floors");
+const HostelRoom = require("../models/hostel_rooms");
+const HostelBed = require("../models/hostel_beds");
 const User = require("../models/user");
 const md5 = require("md5");
 const nodemailer = require("nodemailer");
@@ -81,6 +84,60 @@ const addHostel = async (req, res) => {
 	}
 };
 
+const addHostelFloor = async (req, res) => {
+	const dt = new Date().getTime();
+	const hostelFloorDT = new HostelFloor({
+		...req.body,
+		hostel_floor_id: `PGCRM_${Math.random()}`,
+		creation_date: dt,
+		status: 0,
+	});
+	try {
+		await hostelFloorDT.save();
+		await res.status(201).send(true);
+	} catch (err) {
+		console.log(err);
+		res.status(400).send(err);
+	}
+};
+
+const addHostelRoom = async (req, res) => {
+	const dt = new Date().getTime();
+	const hostelRoomDT = new HostelRoom({
+		...req.body,
+		hostel_room_id: `PGCRM_${Math.random()}`,
+		creation_date: dt,
+		status: 0,
+	});
+	try {
+		await hostelRoomDT.save();
+		await res.status(201).send(true);
+	} catch (err) {
+		console.log(err);
+		res.status(400).send(err);
+	}
+};
+
+const addHostelBed = async (req, res) => {
+	const dt = new Date().getTime();
+	const hostelBedDT = new HostelBed({
+		...req.body,
+		hostel_bed_id: `PGCRM_${Math.random()}`,
+		creation_date: dt,
+		status: 0,
+	});
+	try {
+		await hostelBedDT.save();
+		await res.status(201).send(true);
+	} catch (err) {
+		console.log(err);
+		res.status(400).send(err);
+	}
+};
+
 module.exports = {
 	addHostel,
+	addHostelFloor,
+	addHostelRoom,
+	addHostelBed
 };
