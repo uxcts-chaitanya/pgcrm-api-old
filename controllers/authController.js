@@ -6,7 +6,8 @@ const jwt = require("jsonwebtoken");
 const TOKEN_KEY = "PGCRM_TOKEN";
 
 const login = async (req, res) => {
-	const { username, password } = req.body; 
+	const { username, password } = req.body;
+	console.log(username, password)
 	if (!(username && password)) {
 		res
 			.status(200)

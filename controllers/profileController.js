@@ -14,7 +14,6 @@ const changePassword = async (req, res) => {
 
 	try {
 		const user = await User.findOne({ email: username });
-		console.log(user);
 		if (!user) {
 			res.status(200).send({ cpChange: false, message: "User Not found!" });
 		} else {
@@ -23,11 +22,11 @@ const changePassword = async (req, res) => {
 					.status(200)
 					.send({ cpChange: false, message: "Invalid current password." });
 			} else {
+				const dt = new Date().getTime();
 				await User.updateOne(
-					{ _id: user._id },
+					{ _id: user._id, last_login: dt },
 					{ $set: { password: currentPass } }
 				);
-
 				res
 					.status(200)
 					.send({ cpChange: true, message: "Password Changed successfully." });

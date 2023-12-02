@@ -38,10 +38,9 @@ const addHostel = async (req, res) => {
 			setup_done: false,
 		});
 		await user.save();
-		console.log(randomPwd);
 		const mailOptions = {
 			from: "product.support@uxcts.com",
-			to: "sai.varadula@gmail.com",
+			to: req.body.email,
 			subject: "Sending Email using Node.js",
 			html: `
 				<html>
@@ -66,8 +65,6 @@ const addHostel = async (req, res) => {
 				</html>
                 `,
 		};
-
-		// Needs update here with new gmail id.
 
 		transporter.sendMail(mailOptions, function (error, info) {
 			if (error) {
