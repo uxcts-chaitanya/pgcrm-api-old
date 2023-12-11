@@ -1,4 +1,6 @@
 const Hostel = require("../models/hostel");
+const PgIncome = require("../models/income");
+const Student = require("../models/student");
 const User = require("../models/user");
 const md5 = require("md5");
 const nodemailer = require("nodemailer");
@@ -12,6 +14,24 @@ const transporter = nodemailer.createTransport({
 		pass: "Connect$Product#2023!",
 	},
 });
+
+const addStudentIncome = async (req, res) => {
+	const dt = new Date().getTime();
+	const studentIncome = new PgIncome({
+		...req.body,
+		income_date: dt,
+		income_id: `INC_${Math.random()}`,
+		creation_date: dt,
+		status: 1,
+	});
+	try {
+		await studentIncome.save();
+		await res.status(201).send(true);
+	} catch (err) {
+		console.log(err);
+		res.status(400).send(err);
+	}
+};
 
 const addHostel = async (req, res) => {
 	const dt = new Date().getTime();
@@ -83,4 +103,5 @@ const addHostel = async (req, res) => {
 
 module.exports = {
 	addHostel,
+	addStudentIncome,
 };

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const hostelSchema = new mongoose.Schema({
-	hostel_id: {
+const StudentSchema = new mongoose.Schema({
+	student_id: {
 		type: String,
 		unique: true,
 		required: true,
@@ -31,18 +31,30 @@ const hostelSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	landline: {
+	age: {
 		type: String,
 		required: true,
 	},
-	owner_type: {
+	aadhar_number: {
 		type: String,
 		required: true,
+	},
+	reffered: {
+		type: String,
+		required: false,
+	},
+	reffered_mobile: {
+		type: String,
+		required: false,
 	},
 	address: {
 		type: String,
 		required: true,
 		default: null,
+	},
+	study_at: {
+		type: String,
+		required: false,
 	},
 	email: {
 		type: String,
@@ -69,20 +81,14 @@ const hostelSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	geo_location: {
-		type: String,
-		required: true,
-	},
-	owner_photo: {
+	student_photo: {
 		type: String,
 	},
-	registration_certificate: {
+	aadhar_attach: {
 		type: String,
-		required: true,
 	},
-	setup_done: {
-		type: Boolean,
-		default: false,
+	address_attach: {
+		type: String,
 	},
 	creation_date: {
 		type: String,
@@ -90,10 +96,18 @@ const hostelSchema = new mongoose.Schema({
 	status: {
 		type: Number,
 	},
-	is_approved: {
-		type: Boolean,
-		default: false,
+	floor: {
+		type: String,
+		required: true,
+	},
+	room: {
+		type: String,
+		required: true,
+	},
+	bed_id: {
+		type: String,
+		required: true,
 	},
 });
 
-module.exports = mongoose.model("hostels", hostelSchema);
+module.exports = mongoose.model("students", StudentSchema);
