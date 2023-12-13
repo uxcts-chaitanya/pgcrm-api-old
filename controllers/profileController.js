@@ -7,7 +7,6 @@ const TOKEN_KEY = "PGCRM_TOKEN";
 
 const changePassword = async (req, res) => {
 	const { currentPass, newPass, username } = req.body;
-	console.log(req.body);
 	if (!(currentPass && newPass)) {
 		res.status(200).send({ cpChange: false, message: "All input is required" });
 	}
@@ -24,8 +23,8 @@ const changePassword = async (req, res) => {
 			} else {
 				const dt = new Date().getTime();
 				await User.updateOne(
-					{ _id: user._id, last_login: dt },
-					{ $set: { password: currentPass } }
+					{ _id: user._id },
+					{ $set: { password: newPass, last_login: dt } }
 				);
 				res
 					.status(200)

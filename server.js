@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use("/api", appRoutes);
+app.use("", appRoutes);
 
 app.use((_, res) => {
 	res.send({

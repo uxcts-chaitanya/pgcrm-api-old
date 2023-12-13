@@ -7,7 +7,7 @@ const TOKEN_KEY = "PGCRM_TOKEN";
 
 const login = async (req, res) => {
 	const { username, password } = req.body;
-	console.log(username, password)
+	console.log(username, password);
 	if (!(username && password)) {
 		res
 			.status(200)
@@ -15,7 +15,7 @@ const login = async (req, res) => {
 	}
 
 	try {
-		const user = await User.findOne({ email: username });
+		const user = await User.findOne({ email: username, password: password });
 		if (!user) {
 			res
 				.status(200)
