@@ -1,5 +1,6 @@
 const Hostel = require("../models/hostel");
 const HostelUser = require("../models/hostel_user");
+const HostelStaff = require("../models/hostel_staff");
 const PgIncome = require("../models/income");
 const Student = require("../models/student");
 const User = require("../models/user");
@@ -50,6 +51,27 @@ const getList = async (req, res) => {
 const HostelUsers = async (req, res) => {
 	const users = await HostelUser.find();
 	res.status(200).send(users);
+};
+
+const listStaffOfHostel = async (req, res) => {
+	const users = await HostelStaff.find();
+	res.status(200).send(users);
+};
+
+const addStaffToHostel = async (req, res) => {
+	const hostelDT = new HostelStaff({
+		...req.body,
+		joining_date: dt,
+		creation_date: dt,
+		status: 1,
+	});
+	try {
+		await hostelDT.save();
+		await res.status(201).send(true);
+	} catch (err) {
+		console.log(err);
+		res.status(400).send(err);
+	}
 };
 
 const addUserToHostel = async (req, res) => {
@@ -147,4 +169,6 @@ module.exports = {
 	addUserToHostel,
 	HostelUsers,
 	listStudentIncome,
+	addStaffToHostel,
+	listStaffOfHostel,
 };
