@@ -7,6 +7,11 @@ const userSchema = new mongoose.Schema({
 		unique: true,
 		required: true,
 	},
+	hostel_id: {
+		type: String,
+		required: false,
+		default: 0,
+	},
 	password: {
 		type: String,
 		required: true,

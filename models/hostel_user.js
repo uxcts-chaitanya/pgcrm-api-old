@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const hostelSchema = new mongoose.Schema({
+const hostelUserSchema = new mongoose.Schema({
 	hostel_id: {
 		type: String,
-		unique: true,
+		required: true,
+	},
+	user_type: {
+		type: String,
 		required: true,
 	},
 	joining_date: {
@@ -13,77 +16,86 @@ const hostelSchema = new mongoose.Schema({
 	},
 	gender: {
 		type: String,
-		required: true,
+		required: false,
 	},
-	firstname: {
+	user_name: {
 		type: String,
 		required: true,
 	},
-	lastname: {
+	user_mobile_number: {
 		type: String,
 		required: true,
 	},
-	date_of_birth: {
+	user_amount: {
 		type: String,
 		required: true,
 	},
-	mobile: {
+	user_billing: {
 		type: String,
 		required: true,
 	},
-	landline: {
+	user_room_no: {
 		type: String,
 		required: true,
 	},
-	owner_type: {
+	user_room_type: {
 		type: String,
 		required: true,
 	},
-	address: {
+	user_room_floor: {
+		required: true,
+		type: String,
+	},
+	user_reffered_number: {
+		type: String,
+		required: true,
+	},
+	user_aadhar_number: {
+		type: String,
+		required: true,
+	},
+	user_referred_by: {
+		type: String,
+		required: true,
+	},
+	user_address: {
 		type: String,
 		required: true,
 		default: null,
 	},
-	email: {
+	user_email: {
 		type: String,
-		unique: true,
-		required: true,
+		unique: false,
+		required: false,
+		default: "no_email",
 	},
-	fathername: {
-		type: String,
-		required: true,
-	},
-	language: {
+	user_father_name: {
 		type: String,
 		required: true,
 	},
-	country: {
+	user_country: {
 		type: String,
 		required: true,
 	},
-	state: {
+	user_state: {
 		type: String,
 		required: true,
 	},
-	city: {
+	user_city: {
 		type: String,
 		required: true,
 	},
-	geo_location: {
+	user_age: {
 		type: String,
 		required: true,
 	},
-	owner_photo: {
+	profile_photo: {
 		type: String,
 		required: false,
 	},
-	registration_certificate: {
+	user_billing_date: {
 		type: String,
 		required: false,
-	},
-	setup_done: {
-		type: Boolean,
-		default: false,
 	},
 	creation_date: {
 		type: String,
@@ -91,10 +103,6 @@ const hostelSchema = new mongoose.Schema({
 	status: {
 		type: Number,
 	},
-	is_approved: {
-		type: Boolean,
-		default: false,
-	},
 });
 
-module.exports = mongoose.model("hostels", hostelSchema);
+module.exports = mongoose.model("hostel_users", hostelUserSchema);
