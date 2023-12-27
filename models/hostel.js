@@ -81,6 +81,11 @@ const hostelSchema = new mongoose.Schema({
 		type: String,
 		required: false,
 	},
+	hostel_size: {
+		type: String,
+		required: true,
+		default: "0-50",
+	},
 	setup_done: {
 		type: Boolean,
 		default: false,
