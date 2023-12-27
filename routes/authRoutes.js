@@ -3,5 +3,6 @@ const authController = require("../controllers/authController");
 const authRouter = express.Router();
 
 authRouter.route("/login").post(authController.login);
+authRouter.route("/forgotpswd").post(authController.forgotpassword);
 
 module.exports = authRouter;

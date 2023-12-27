@@ -5,6 +5,9 @@ const hostelRouter = express.Router();
 hostelRouter.route("/add").post(hostelController.addHostel);
 hostelRouter.route("/list").get(hostelController.getList);
 
+hostelRouter.route("/expense/add").post(hostelController.addHostelExpense);
+hostelRouter.route("/expense/list").get(hostelController.listHostelExpense);
+
 hostelRouter.route("/income/add").post(hostelController.addStudentIncome);
 hostelRouter.route("/income/list").get(hostelController.listStudentIncome);
 

@@ -2,6 +2,7 @@ const Hostel = require("../models/hostel");
 const HostelUser = require("../models/hostel_user");
 const HostelStaff = require("../models/hostel_staff");
 const PgIncome = require("../models/income");
+const PgExpense = require("../models/expense");
 const Student = require("../models/student");
 const User = require("../models/user");
 const md5 = require("md5");
@@ -22,6 +23,29 @@ const transporter = nodemailer.createTransport({
 const listStudentIncome = async (req, res) => {
 	const incomeList = await PgIncome.find();
 	res.status(200).send(incomeList);
+};
+
+const listHostelExpense = async (req, res) => {
+	const list = await PgExpense.find();
+	res.status(200).send(list);
+};
+
+const addHostelExpense = async (req, res) => {
+	const id = `EXP_${Math.floor(Math.random() * dt)}`;
+	const exp = new PgExpense({
+		...req.body,
+		expense_date: dt,
+		expense_id: id,
+		creation_date: dt,
+		status: 1,
+	});
+	try {
+		await exp.save();
+		await res.status(201).send(true);
+	} catch (err) {
+		console.log(err);
+		res.status(400).send(err);
+	}
 };
 
 const addStudentIncome = async (req, res) => {
@@ -171,4 +195,6 @@ module.exports = {
 	listStudentIncome,
 	addStaffToHostel,
 	listStaffOfHostel,
+	addHostelExpense,
+	listHostelExpense,
 };
